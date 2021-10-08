@@ -1,0 +1,379 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+	<!-- Primary Meta Tags -->
+	<title>Battlefield V Menu Changer</title>
+	<meta name="title" content="Battlefield V Menu Changer">
+	<meta name="description" content="An interactive Battlefield V Menu that lets you move items and change the background to anything you want.">
+	<meta name="theme-color" content="#ffa824">
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://leonlarsson.com/projects/bfvmenu/">
+	<meta property="og:title" content="Battlefield V Menu Changer">
+	<meta property="og:description" content="An interactive Battlefield V Menu that lets you move items and change the background to anything you want.">
+	<meta property="og:image" content="https://leonlarsson.com/projects/bfvmenu/sampleimage.png">
+
+	<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://leonlarsson.com/projects/bfvmenu/">
+	<meta property="twitter:title" content="Battlefield V Menu Changer">
+	<meta property="twitter:description" content="An interactive Battlefield V Menu that lets you move items and change the background to anything you want.">
+	<meta property="twitter:image" content="https://leonlarsson.com/projects/bfvmenu/sampleimage.png">
+
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="icon" href="/assets/icon.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="/assets/icon.ico" type="image/x-icon" />
+	<link href="css/styles.css" rel="stylesheet" type="text/css">
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> <!-- Local? -->
+	<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script> <!-- Local? -->
+	<script src="js/jscolor.js"></script> <!-- SOURCE: https://github.com/EastDesire/jscolor -->
+	<script src="js/dom-to-image.min.js"></script> <!-- SOURCE: https://github.com/tsayen/dom-to-image -->
+	<script src="js/FileSaver.js"></script> <!-- SOURCE: https://github.com/eligrey/FileSaver.js/ -->
+
+</head>
+
+<body>
+
+	<!-- Scaling buttons and info -->
+	<div id="header" style="position: fixed; z-index: 999">
+		<button style="width:50px; height:50px" id="scaleDownButton" onclick="toggleScaleDown()">-</button>
+		<button style="width:50px; height:50px" id="scaleUpButton" onclick="toggleScaleUp()">+</button>
+		<button style="height:50px" id="scaleResetButton" onclick="resetScale()">Reset Scale</button>
+		<button id="unpinHeaderButton" onclick="unPinHeader()">Unpin</button>
+		<button id="pinHeaderButton" style="display: none;" onclick="pinHeader()">Pin</button>
+		<b style="font-size: 20px; font-family: Verdana;">Use these to scale the menu canvas. Good to use for smaller screens. Dragging works best without scaling</b>
+	</div>
+
+	<!-- This Div gets scaled
+	Includes every item -->
+	<div id=scaleMe style="transform-origin: 0 0">
+
+		<!-- MAIN LIST OF ITEMS
+		ON UPDATE:
+		-Rename "Background" div id to "MenuBackground"
+		-ADD IMG ID TO MenuBackground(Img), ImagesEADICE(Img) and BasePFP(Img)
+
+		Inside MenuBackground, add:
+		<video controls loop id="MenuBackgroundVid"></video>
+		<iframe allow="autoplay" width="2560" height="1440" id="youtubeSRC"></iframe>
+
+		-If there, remove "PFP"
+		-->
+		<div id="background">
+			<div id="MenuBackground">
+				<img id="MenuBackgroundImg" src="images/Background.png">
+				<video controls loop id="MenuBackgroundVid"></video>
+				<iframe allow="autoplay" width="2560" height="1440" id="youtubeSRC"></iframe>
+			</div>
+			<div id="ImagesEADICE"><img id="ImagesEADICEImg" src="images/ImagesEADICE.png"></div>
+			<div id="Squad1"><img src="images/Squad1.png"></div>
+			<div id="Plus1"><img src="images/Plus1.png"></div>
+			<div id="Squad2"><img src="images/Squad2.png"></div>
+			<div id="Plus2"><img src="images/Plus2.png"></div>
+			<div id="Squad3"><img src="images/Squad3.png"></div>
+			<div id="Plus3"><img src="images/Plus3.png"></div>
+			<div id="Squad4"><img src="images/Squad4.png"></div>
+			<div id="ChatIcon"><img src="images/ChatIcon.png"></div>
+			<div id="FriendlistTile"><img src="images/FriendlistTile.png"></div>
+			<div id="OnlineNumber"><img src="images/OnlineNumber.png"></div>
+			<div id="Head1"><img src="images/Head1.png"></div>
+			<div id="Head2"><img src="images/Head2.png"></div>
+			<div id="Head3"><img src="images/Head3.png"></div>
+			<div id="Body1"><img src="images/Body1.png"></div>
+			<div id="Body2"><img src="images/Body2.png"></div>
+			<div id="Body3"><img src="images/Body3.png"></div>
+			<div id="BasePFP"><img id="BasePFPImg" src="images/BasePFP.png"></div>
+			<div id="BaseTile3"><img src="images/BaseTile3.png"></div>
+			<div id="BaseTile2"><img src="images/BaseTile2.png"></div>
+			<div id="BaseTile1"><img src="images/BaseTile1.png"></div>
+			<div id="Blur3"><img src="images/Blur3.png"></div>
+			<div id="Blur2"><img src="images/Blur2.png"></div>
+			<div id="Blur1"><img src="images/Blur1.png"></div>
+			<div id="QUIT"><img src="images/QUIT.png"></div>
+			<div id="OPTIONS"><img src="images/OPTIONS.png"></div>
+			<div id="PROFILE"><img src="images/PROFILE.png"></div>
+			<div id="ASSIGNMENTS"><img src="images/ASSIGNMENTS.png"></div>
+			<div id="CHAPTERREWARDS"><img src="images/CHAPTERREWARDS.png"></div>
+			<div id="ARMORY"><img src="images/ARMORY.png"></div>
+			<div id="YOURCOMPANY"><img src="images/YOURCOMPANY.png"></div>
+			<div id="PLAY"><img src="images/PLAY.png"></div>
+			<div id="VIEWCHAPTERREWARDS"><img src="images/VIEWCHAPTERREWARDS.png"></div>
+			<div id="CHAPTERNAME"><img src="images/CHAPTERNAME.png"></div>
+			<div id="TOWSymbol"><img src="images/TOWSymbol.png"></div>
+			<div id="MenuLine3"><img src="images/MenuLine3.png"></div>
+			<div id="MenuLine2"><img src="images/MenuLine2.png"></div>
+			<div id="MenuLine1"><img src="images/MenuLine1.png"></div>
+			<div id="BFVLogo"><img src="images/BFVLogo.png"></div>
+			<!-- END OF LIST -->
+
+			<!-- Color box
+			DISPLAYS SOLID COLORS-->
+			<div id="colorbox" style="background-color: rgb(136, 136, 136); display: none;"></div>
+		</div>
+
+		<!-- Bottom modules
+		ELEMENTS BELOW MAIN CANVAS -->
+		<div id="bottomModules" style="text-align: center">
+			<!-- BOTTOM TECH -->
+			<div id="bottomButtons">
+				<!-- CHOOSE FILE. INPUT=imgInp ACCEPTS IMAGES. -->
+				Change background
+				<input type='file' id="imgInp" onclick="this.value=null;" accept="image/*">
+				<button id="youtubePrompt">YouTube ID</button>
+				<br>
+				Change PFP
+				<input type='file' id="imgInpPFP" accept="image/*">
+				<br>
+				<br>
+
+				<!-- Toggle color button -->
+				<button id="toggleColorButton" onclick="toggleColor()">Toggle solid color</button>
+				<br>
+
+				<!-- Custom colorpicker -->
+				<input id="colorpicker" class="jscolor {onFineChange:'update(this)'}" value="888888" style="display: none;">
+				<br>
+				<br>
+
+				<!-- Capture button -->
+				<button id="capturebutton" style="height: 50px; width: 100px" onclick="capturescreenshot()">Download image!</button>
+			</div>
+
+			<!-- BOTTOM TEXT -->
+			<div id="bottomText" style="font-size: 200%; font-family: Verdana, Geneva, sans-serif; text-align: center">
+				Choose an image or a solid color above!
+				<br>
+				<a href="https://youtu.be/P3zMuMp6aGc">Menu almost entirely recreated in Photoshop. Video here</a>
+				<br>
+				<a href="https://twitter.com/MozzyFX">@MozzyFX on Twitter</a>
+				<br>
+				<a style="font-size: 50%" href="changelog">(changelog)</a>
+			</div>
+		</div>
+	</div>
+
+	<!---UNDER THE HOOD KAPPA---------------------------------------------------------------------------->
+
+	<!-- RUNS LOGIC BEHIND MANUAL SCALING AND SCALING Reset
+	SCALES DOWN MAIN CANVAS WHILE SCALING UP #bottomModules -->
+	<script>
+		//DECLARES INITIAL SCALE VALUES
+		var transformScaleNum = 1.0;
+		var transformScaleNumBottom = 1.0;
+
+		//SCALE DOWN FUNCTION. SUBTRACT .1 EVERY BUTTON CLICK. UPDATES VAR.
+		//APPLIES VAR TO CSS SCALE
+		function toggleScaleDown() {
+			transformScaleNum = (transformScaleNum - .1);
+			$("#scaleMe").css("transform", `scale(${transformScaleNum})`);
+
+			//SAME BUT INVERSE AND FOR #bottomModules
+			transformScaleNumBottom = (transformScaleNumBottom + .1);
+			$("#bottomModules").css("transform", `scale(${transformScaleNumBottom})`);
+		}
+
+		//SCALE UP FUNCTION. ADD .1 EVERY BUTTON CLICK. UPDATES VAR.
+		//APPLIES VAR TO CSS SCALE
+		function toggleScaleUp() {
+			transformScaleNum = (transformScaleNum + .1);
+			$('#scaleMe').css("transform", `scale(${transformScaleNum})`);
+
+			//SAME BUT INVERSE AND FOR #bottomModules
+			transformScaleNumBottom = (transformScaleNumBottom - .1);
+			$("#bottomModules").css("transform", `scale(${transformScaleNumBottom})`);
+		}
+
+		//RESET SCALE FUNCTION. UPDATES VARS TO 1.0. APPLIES TO CSS SCALE.
+		function resetScale() {
+			transformScaleNum = 1.0;
+			transformScaleNumBottom = 1.0;
+			$('#scaleMe').css("transform", `scale(${transformScaleNum})`);
+			$("#bottomModules").css("transform", `scale(${transformScaleNumBottom})`);
+		}
+	</script>
+
+	<!-- RUNS LOGIC BEHIND PIN/UNPIN buttons.
+	ONE FUNCTION FOR EACH -->
+	<script>
+		//WHEN CLICKING Unpin. Removes header styles and switches buttons.
+		function unPinHeader() {
+			$("#header").removeAttr("style");
+			$("#unpinHeaderButton").hide();
+			$("#pinHeaderButton").show();
+		}
+
+		//WHEN CLICKING Pin. Applies header styles and switches buttons.
+		function pinHeader() {
+			$("#header").attr("style", "position: fixed; z-index: 999");
+			$("#unpinHeaderButton").show();
+			$("#pinHeaderButton").hide();
+		}
+	</script>
+
+	<!-- ENABLES ELEMENT DRAGGING.
+	jQueryUI.draggable -->
+	<script>
+		$("#background *").not("#MenuBackground, #MenuBackgroundImg, #MenuBackgroundVid, #youtubeSRC, #colorbox, #ImagesEADICE, #ImagesEADICEImg").draggable({
+			cursor: "move",
+			containment: "#background"
+		});
+	</script>
+
+	<!-- SCRIPT THAT RUNS IMAGE CHANGING. CHANGES BACKGROUND SRC.
+	ALSO HIDES #colorbox AND #colorpicker -->
+	<script>
+		$("#imgInp").change(function() {
+			readBGURL(this);
+		});
+
+		function readBGURL(input) {
+			try {
+
+				//If selected file is an image
+				if (input.files[0].type.match('image.*')) {
+					var reader = new FileReader();
+
+					reader.onload = function(e) {
+						//Set Image src, unhide div
+						$("#MenuBackgroundImg").attr("src", e.target.result);
+						$("#MenuBackgroundImg").attr("width", "2560px");
+						$("#MenuBackgroundImg").attr("height", "1440px");
+						$("#MenuBackgroundImg").removeAttr("style");
+						//Remove vid src, mute audio and hide div
+						$("#MenuBackgroundVid").removeAttr("src");
+						$("#MenuBackgroundVid").prop("muted", true);
+						$("#MenuBackgroundVid").attr("style", "display: none");
+						//Remove YT src, hide div
+						$("#youtubeSRC").removeAttr("src");
+						$("#youtubeSRC").attr("style", "display: none");
+						//Hide solid color box and picker
+						$("#colorbox").hide();
+						$("#colorpicker").hide();
+						console.log("Changed Background SRC To Image File");
+					}
+					reader.readAsDataURL(input.files[0]);
+				}
+
+				//If selected file is a video
+				if (input.files[0].type.match('video.*')) {
+					var reader = new FileReader();
+
+					reader.onload = function(e) {
+						//Set Vid src, unhide, set audio to 30%
+						$("#MenuBackgroundVid").attr("src", e.target.result);
+						$("#MenuBackgroundVid").attr("width", "2560px");
+						$("#MenuBackgroundVid").attr("height", "1440px");
+						$("#MenuBackgroundVid").removeAttr("style");
+						$("#MenuBackgroundVid").prop("muted", false);
+						$("#MenuBackgroundVid").prop("volume", 0.3);
+						//Hide Img div
+						$("#MenuBackgroundImg").attr("style", "display: none");
+						//Remove YT src, hide div
+						$("#youtubeSRC").removeAttr("src");
+						$("#youtubeSRC").attr("style", "display: none");
+						//Hide solid color box and picker
+						$("#colorbox").hide();
+						$("#colorpicker").hide();
+						console.log("Changed Background SRC To Video File");
+					}
+					reader.readAsDataURL(input.files[0]);
+				}
+			} catch (e) {
+				console.log(`%cOops, something broke. Sorry about that :( \n\n${e}`, 'color: #dc5b4a');
+			}
+		}
+	</script>
+
+	<!-- YOUTUBE EMBED SCRIPT
+	DISABLES OTHER MEDIA FORMS -->
+	<script>
+		$("#youtubePrompt").click(function() {
+			youtubeID();
+		});
+
+		function youtubeID() {
+			//Saves input as videoID
+			var videoID = prompt(`Please enter a YouTude ID. Not a link. \nyoutube.com/watch?v=ID`);
+
+			if (videoID == null || videoID == "") {
+				alert("Please enter a YouTube ID");
+			} else {
+				//Set YT src to link+videoID, hide Img/Vid divs, remove Vid src, unhide YT div
+				$("#youtubeSRC").attr("src", `https://www.youtube.com/embed/${videoID}?autoplay=1&controls=1&loop=1&playlist=${videoID}`);
+				$("#MenuBackgroundImg").attr("style", "display: none");
+				$("#MenuBackgroundVid").attr("style", "display: none");
+				$("#MenuBackgroundVid").attr("src", " ");
+				$("#youtubeSRC").removeAttr("style");
+				console.log(`Changed Background SRC to YouTube ID ${videoID}`);
+			}
+		}
+	</script>
+
+	<!-- SCRIPT THAT RUNS IMAGE CHANGING. CHANGES PFP SRC. -->
+	<script>
+		$("#imgInpPFP").change(function() {
+			readPFPURL(this);
+		});
+
+		function readPFPURL(input) {
+			try {
+
+				//If file is image, run. Else... no.
+				if (input.files[0].type.match('image.*')) {
+					var reader = new FileReader();
+
+					reader.onload = function(e) {
+						$("#BasePFPImg").attr('src', e.target.result);
+						$("#BasePFPImg").attr("width", "67px");
+						$("#BasePFPImg").attr("height", "66px");
+						console.log("Changed Profile Picture SRC");
+					}
+					reader.readAsDataURL(input.files[0]);
+				} else {
+					alert("Please only select Image files.")
+				}
+			} catch (e) {
+				console.log(`%cOops, something broke. Sorry about that :( \n\n${e}`, 'color: #dc5b4a');
+			}
+		}
+	</script>
+
+	<!-- RUNS LOGIC BEHIND #toggleColorButton.
+	TOGGLES SOLID COLOR #colorbox AND #colorpicker -->
+	<script>
+		function toggleColor() {
+			$("#colorbox").toggle();
+			$("#colorpicker").toggle();
+			var bool = $("#MenuBackgroundVid").prop("muted");
+			$("#MenuBackgroundVid").prop("muted", !bool);
+		};
+	</script>
+
+	<!-- UPDATES #colorbox COLOR WITH COLORPICKER VALUE -->
+	<script>
+		function update(jscolor) {
+			document.getElementById("colorbox").style.backgroundColor = '#' + jscolor
+			$("#colorbox").show();
+			$("#MenuBackgroundVid").prop("muted", true);
+		}
+	</script>
+
+	<!-- IMAGE DOWNLOAD SCRIPT.
+	CAPTURES ELEMENT "background" AND DOWNLOADS IT -->
+	<script>
+		function capturescreenshot() {
+			domtoimage.toBlob(document.getElementById("background"), {
+				width: 2560,
+				height: 1440
+			}).then(function(blob) {
+				window.saveAs(blob, 'BFVMenuImage.png');
+			});
+		}
+	</script>
+
+</body>
+
+</html>
