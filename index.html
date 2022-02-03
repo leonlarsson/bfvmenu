@@ -1,4 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -6,22 +7,25 @@
 	<!-- Primary Meta Tags -->
 	<title>Battlefield V Menu Changer</title>
 	<meta name="title" content="Battlefield V Menu Changer">
-	<meta name="description" content="An interactive Battlefield V Menu that lets you move items and change the background to anything you want.">
+	<meta name="description"
+		content="An interactive Battlefield V Menu that lets you move items and change the background to anything you want.">
 	<meta name="theme-color" content="#ffa824">
 
 	<!-- Open Graph / Facebook -->
 	<meta property="og:type" content="website">
-	<meta property="og:url" content="https://leonlarsson.com/projects/bfvmenu/">
+	<meta property="og:url" content="https://bfvmenu.leonlarsson.com">
 	<meta property="og:title" content="Battlefield V Menu Changer">
-	<meta property="og:description" content="An interactive Battlefield V Menu that lets you move items and change the background to anything you want.">
-	<meta property="og:image" content="https://leonlarsson.com/projects/bfvmenu/sampleimage.png">
+	<meta property="og:description"
+		content="An interactive Battlefield V Menu that lets you move items and change the background to anything you want.">
+	<meta property="og:image" content="https://bfvmenu.leonlarsson.com/sampleimage.png">
 
 	<!-- Twitter -->
 	<meta property="twitter:card" content="summary_large_image">
-	<meta property="twitter:url" content="https://leonlarsson.com/projects/bfvmenu/">
+	<meta property="twitter:url" content="https://bfvmenu.leonlarsson.com">
 	<meta property="twitter:title" content="Battlefield V Menu Changer">
-	<meta property="twitter:description" content="An interactive Battlefield V Menu that lets you move items and change the background to anything you want.">
-	<meta property="twitter:image" content="https://leonlarsson.com/projects/bfvmenu/sampleimage.png">
+	<meta property="twitter:description"
+		content="An interactive Battlefield V Menu that lets you move items and change the background to anything you want.">
+	<meta property="twitter:image" content="https://bfvmenu.leonlarsson.com/sampleimage.png">
 
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link rel="icon" href="/assets/icon.ico" type="image/x-icon" />
@@ -44,7 +48,8 @@
 		<button style="height:50px" id="scaleResetButton" onclick="resetScale()">Reset Scale</button>
 		<button id="unpinHeaderButton" onclick="unPinHeader()">Unpin</button>
 		<button id="pinHeaderButton" style="display: none;" onclick="pinHeader()">Pin</button>
-		<b style="font-size: 20px; font-family: Verdana;">Use these to scale the menu canvas. Good to use for smaller screens. Dragging works best without scaling</b>
+		<b style="font-size: 20px; font-family: Verdana;">Use these to scale the menu canvas. Good to use for smaller
+			screens. Dragging works best without scaling</b>
 	</div>
 
 	<!-- This Div gets scaled
@@ -134,12 +139,14 @@
 				<br>
 
 				<!-- Custom colorpicker -->
-				<input id="colorpicker" class="jscolor {onFineChange:'update(this)'}" value="888888" style="display: none;">
+				<input id="colorpicker" class="jscolor {onFineChange:'update(this)'}" value="888888"
+					style="display: none;">
 				<br>
 				<br>
 
 				<!-- Capture button -->
-				<button id="capturebutton" style="height: 50px; width: 100px" onclick="capturescreenshot()">Download image!</button>
+				<button id="capturebutton" style="height: 50px; width: 100px" onclick="capturescreenshot()">Download
+					image!</button>
 			</div>
 
 			<!-- BOTTOM TEXT -->
@@ -225,7 +232,7 @@
 	<!-- SCRIPT THAT RUNS IMAGE CHANGING. CHANGES BACKGROUND SRC.
 	ALSO HIDES #colorbox AND #colorpicker -->
 	<script>
-		$("#imgInp").change(function() {
+		$("#imgInp").change(function () {
 			readBGURL(this);
 		});
 
@@ -236,7 +243,7 @@
 				if (input.files[0].type.match('image.*')) {
 					var reader = new FileReader();
 
-					reader.onload = function(e) {
+					reader.onload = function (e) {
 						//Set Image src, unhide div
 						$("#MenuBackgroundImg").attr("src", e.target.result);
 						$("#MenuBackgroundImg").attr("width", "2560px");
@@ -261,7 +268,7 @@
 				if (input.files[0].type.match('video.*')) {
 					var reader = new FileReader();
 
-					reader.onload = function(e) {
+					reader.onload = function (e) {
 						//Set Vid src, unhide, set audio to 30%
 						$("#MenuBackgroundVid").attr("src", e.target.result);
 						$("#MenuBackgroundVid").attr("width", "2560px");
@@ -290,7 +297,7 @@
 	<!-- YOUTUBE EMBED SCRIPT
 	DISABLES OTHER MEDIA FORMS -->
 	<script>
-		$("#youtubePrompt").click(function() {
+		$("#youtubePrompt").click(function () {
 			youtubeID();
 		});
 
@@ -314,7 +321,7 @@
 
 	<!-- SCRIPT THAT RUNS IMAGE CHANGING. CHANGES PFP SRC. -->
 	<script>
-		$("#imgInpPFP").change(function() {
+		$("#imgInpPFP").change(function () {
 			readPFPURL(this);
 		});
 
@@ -325,7 +332,7 @@
 				if (input.files[0].type.match('image.*')) {
 					var reader = new FileReader();
 
-					reader.onload = function(e) {
+					reader.onload = function (e) {
 						$("#BasePFPImg").attr('src', e.target.result);
 						$("#BasePFPImg").attr("width", "67px");
 						$("#BasePFPImg").attr("height", "66px");
@@ -368,7 +375,7 @@
 			domtoimage.toBlob(document.getElementById("background"), {
 				width: 2560,
 				height: 1440
-			}).then(function(blob) {
+			}).then(function (blob) {
 				window.saveAs(blob, 'BFVMenuImage.png');
 			});
 		}
