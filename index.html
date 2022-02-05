@@ -46,7 +46,7 @@
 		<button style="width:50px; height:50px" id="scaleDownButton" onclick="toggleScaleDown()">-</button>
 		<button style="width:50px; height:50px" id="scaleUpButton" onclick="toggleScaleUp()">+</button>
 		<button style="height:50px" id="scaleResetButton" onclick="resetScale()">Reset Scale</button>
-		<button id="unpinHeaderButton" onclick="unPinHeader()">Unpin</button>
+		<button id="unpinHeaderButton" onclick="unpinHeader()">Unpin</button>
 		<button id="pinHeaderButton" style="display: none;" onclick="pinHeader()">Pin</button>
 		<b style="font-size: 20px; font-family: Verdana;">Use these to scale the menu canvas. Good to use for smaller
 			screens. Dragging works best without scaling</b>
@@ -54,7 +54,7 @@
 
 	<!-- This Div gets scaled
 	Includes every item -->
-	<div id=scaleMe style="transform-origin: 0 0">
+	<div id="scaleMe" style="transform-origin: 0 0">
 
 		<!-- MAIN LIST OF ITEMS
 		ON UPDATE:
@@ -168,28 +168,28 @@
 	SCALES DOWN MAIN CANVAS WHILE SCALING UP #bottomModules -->
 	<script>
 		//DECLARES INITIAL SCALE VALUES
-		var transformScaleNum = 1.0;
-		var transformScaleNumBottom = 1.0;
+		let transformScaleNum = 1.0;
+		let transformScaleNumBottom = 1.0;
 
 		//SCALE DOWN FUNCTION. SUBTRACT .1 EVERY BUTTON CLICK. UPDATES VAR.
 		//APPLIES VAR TO CSS SCALE
 		function toggleScaleDown() {
-			transformScaleNum = (transformScaleNum - .1);
+			transformScaleNum -= .1;
 			$("#scaleMe").css("transform", `scale(${transformScaleNum})`);
 
 			//SAME BUT INVERSE AND FOR #bottomModules
-			transformScaleNumBottom = (transformScaleNumBottom + .1);
+			transformScaleNumBottom += .1;
 			$("#bottomModules").css("transform", `scale(${transformScaleNumBottom})`);
 		}
 
 		//SCALE UP FUNCTION. ADD .1 EVERY BUTTON CLICK. UPDATES VAR.
 		//APPLIES VAR TO CSS SCALE
 		function toggleScaleUp() {
-			transformScaleNum = (transformScaleNum + .1);
+			transformScaleNum += .1;
 			$('#scaleMe').css("transform", `scale(${transformScaleNum})`);
 
 			//SAME BUT INVERSE AND FOR #bottomModules
-			transformScaleNumBottom = (transformScaleNumBottom - .1);
+			transformScaleNumBottom -= .1;
 			$("#bottomModules").css("transform", `scale(${transformScaleNumBottom})`);
 		}
 
@@ -206,7 +206,7 @@
 	ONE FUNCTION FOR EACH -->
 	<script>
 		//WHEN CLICKING Unpin. Removes header styles and switches buttons.
-		function unPinHeader() {
+		function unpinHeader() {
 			$("#header").removeAttr("style");
 			$("#unpinHeaderButton").hide();
 			$("#pinHeaderButton").show();
@@ -241,9 +241,9 @@
 
 				//If selected file is an image
 				if (input.files[0].type.match('image.*')) {
-					var reader = new FileReader();
+					const reader = new FileReader();
 
-					reader.onload = function (e) {
+					reader.onload = e => {
 						//Set Image src, unhide div
 						$("#MenuBackgroundImg").attr("src", e.target.result);
 						$("#MenuBackgroundImg").attr("width", "2560px");
@@ -266,9 +266,9 @@
 
 				//If selected file is a video
 				if (input.files[0].type.match('video.*')) {
-					var reader = new FileReader();
+					const reader = new FileReader();
 
-					reader.onload = function (e) {
+					reader.onload = e => {
 						//Set Vid src, unhide, set audio to 30%
 						$("#MenuBackgroundVid").attr("src", e.target.result);
 						$("#MenuBackgroundVid").attr("width", "2560px");
@@ -297,15 +297,16 @@
 	<!-- YOUTUBE EMBED SCRIPT
 	DISABLES OTHER MEDIA FORMS -->
 	<script>
-		$("#youtubePrompt").click(function () {
+		$("#youtubePrompt").click(() => {
 			youtubeID();
 		});
 
 		function youtubeID() {
 			//Saves input as videoID
-			var videoID = prompt(`Please enter a YouTude ID. Not a link. \nyoutube.com/watch?v=ID`);
+			const videoID = prompt(`Please enter a YouTude ID. Not a link. \nyoutube.com/watch?v=ID`);
+			if (videoID === null) return;
 
-			if (videoID == null || videoID == "") {
+			if (videoID === "") {
 				alert("Please enter a YouTube ID");
 			} else {
 				//Set YT src to link+videoID, hide Img/Vid divs, remove Vid src, unhide YT div
@@ -330,9 +331,9 @@
 
 				//If file is image, run. Else... no.
 				if (input.files[0].type.match('image.*')) {
-					var reader = new FileReader();
+					const reader = new FileReader();
 
-					reader.onload = function (e) {
+					reader.onload = e => {
 						$("#BasePFPImg").attr('src', e.target.result);
 						$("#BasePFPImg").attr("width", "67px");
 						$("#BasePFPImg").attr("height", "66px");
@@ -340,7 +341,7 @@
 					}
 					reader.readAsDataURL(input.files[0]);
 				} else {
-					alert("Please only select Image files.")
+					alert("Please only select Image files.");
 				}
 			} catch (e) {
 				console.log(`%cOops, something broke. Sorry about that :( \n\n${e}`, 'color: #dc5b4a');
@@ -354,7 +355,7 @@
 		function toggleColor() {
 			$("#colorbox").toggle();
 			$("#colorpicker").toggle();
-			var bool = $("#MenuBackgroundVid").prop("muted");
+			const bool = $("#MenuBackgroundVid").prop("muted");
 			$("#MenuBackgroundVid").prop("muted", !bool);
 		};
 	</script>
@@ -362,7 +363,7 @@
 	<!-- UPDATES #colorbox COLOR WITH COLORPICKER VALUE -->
 	<script>
 		function update(jscolor) {
-			document.getElementById("colorbox").style.backgroundColor = '#' + jscolor
+			document.getElementById("colorbox").style.backgroundColor = `#${jscolor}`;
 			$("#colorbox").show();
 			$("#MenuBackgroundVid").prop("muted", true);
 		}
@@ -375,7 +376,7 @@
 			domtoimage.toBlob(document.getElementById("background"), {
 				width: 2560,
 				height: 1440
-			}).then(function (blob) {
+			}).then(blob => {
 				window.saveAs(blob, 'BFVMenuImage.png');
 			});
 		}
